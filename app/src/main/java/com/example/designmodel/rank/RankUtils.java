@@ -13,11 +13,10 @@ public class RankUtils {
         System.out.println("\n before================================after");
         //bubbleSort();
         //selectSort();
-        insertSort();
+        //insertSort();
         for (int i = 0; i < array.length; i++) {
             System.out.print(array[i] + ",");
         }
-
     }
 
     /**
