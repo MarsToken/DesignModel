@@ -10,6 +10,7 @@ import com.example.designmodel.pattern.extra.simpleFactory.common.IFruit;
  */
 public class TestMain {
     public static void main(String[] args) {
+        //苹果工厂生产苹果，香蕉工厂生产香蕉
         IFruitFactory appleFactory = new AppleFactory();
         IFruit apple = appleFactory.productFruit();
         apple.product();

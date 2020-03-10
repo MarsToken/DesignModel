@@ -1,36 +1,18 @@
 package com.example.designmodel.pattern.create.buildPattern;
 
 /**
- * Created by hp on 2019/12/9.
+ * 抽象构建者
+ * Created by hp on 2020/3/10.
  */
-public class Builder {
-    public Builder builder = null;
+public abstract class Builder {
+    public abstract void buildBread(String bread);
 
-    public Builder() {
+    public abstract void buildVegetable(String vegetable);
 
-    }
+    public abstract void buildPrize(float prize);
 
-    public class Build {
-        private String name;
-        private int age;
+    public abstract void buildName(String name);
 
-        public String getName() {
-            return name == null ? "" : name;
-        }
-
-        public Builder setName(String name) {
-            this.name = name;
-            return Builder.this;
-        }
-
-        public int getAge() {
-            return age;
-        }
-
-        public Builder setAge(int age) {
-            this.age = age;
-            return Builder.this;
-        }
-    }
+    public abstract HamBurg create();
 
 }

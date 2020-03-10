@@ -17,7 +17,7 @@ public class RankUtils {
         //selectSort();
         //insertSort();
         //shellSort();
-        int[] array=mergeSort(RankUtils.array);
+        int[] array = mergeSort(RankUtils.array);
         for (int i = 0; i < array.length; i++) {
             System.out.print(array[i] + ",");
         }
@@ -154,4 +154,5 @@ public class RankUtils {
         }
         return result;
     }
+
 }
