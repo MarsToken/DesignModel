@@ -6,6 +6,7 @@ package com.example.designmodel.pattern.structure.adapterPattern.interfacetype;
  * 再比如用户中心的登录，登出，头像更新等等，通过观察者模式
  * 类方法的实现
  * 基本思路和类的适配器模式相同，只是将Adapter类作修改，这次不继承Source类，而是持有Source类的实例，以达到解决兼容性的问题
+ * 结构模式的基石
  * Created by hp on 2020/3/10.
  */
 public class TestMain {

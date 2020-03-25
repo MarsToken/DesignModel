@@ -1,0 +1,14 @@
+package com.example.designmodel.pattern.structure.AppearancePattern;
+
+/**
+ * Created by hp on 2020/3/13.
+ */
+public class Memory {
+    public void startUp() {
+        System.out.println("memory startup!");
+    }
+
+    public void shutDown() {
+        System.out.println("memory shutdown!");
+    }
+}

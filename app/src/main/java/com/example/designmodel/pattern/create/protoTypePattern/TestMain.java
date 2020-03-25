@@ -17,8 +17,10 @@ public class TestMain {
         System.out.println("original=" + prototype.toString());
         try {
             Prototype prototype_low = (Prototype) prototype.clone();
+            //true String为引用
             System.out.println("low,object:" + prototype_low.toString() + ",string:" + (prototype.getString() == prototype_low.getString()));
             Prototype prototype_deep = (Prototype) prototype.deepClone();
+            //false
             System.out.println("deep,object:" + prototype_deep.toString() + ",string:" + (prototype.getString() == prototype_deep.getString()));
         } catch (CloneNotSupportedException e) {
             e.printStackTrace();

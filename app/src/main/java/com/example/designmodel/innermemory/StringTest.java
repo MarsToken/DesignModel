@@ -30,4 +30,5 @@ public class StringTest {
     //+相当于 创建stringBuilder对象然后执行append的操作，所以+更耗性能 拼接后的对象用toString处理，处理后的字符串放到常量池中，有就直接引用没有就创建 so 2 true
     //3.类加载时初始化问题，s3,34的结果无法在编译时确定，如果final 则true，但是在运行时才知道，所以为false
     //4.
+    //5.对象和值的比较
 }
