@@ -1,0 +1,18 @@
+package com.example.designmodel.pattern.behaviour.thirdclass.mediatorPattern;
+
+/**
+ * Created by hp on 2020/3/31.
+ */
+public abstract class User {
+    private Mediator mediator;
+
+    public Mediator getMediator() {
+        return mediator;
+    }
+
+    public User(Mediator mediator) {
+        this.mediator = mediator;
+    }
+
+    public abstract void work();
+}

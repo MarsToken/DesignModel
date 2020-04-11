@@ -1,4 +1,4 @@
-package com.example.designmodel.structure;
+package com.example.designmodel.datastructure;
 
 /**
  * Created by hp on 2020/2/18.
