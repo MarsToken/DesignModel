@@ -33,7 +33,7 @@ public class RankUtils {
      */
     private static void bubbleSort() {
         int length = array.length;
-        for (int i = 0; i < length - 1; i++) {//并不影响: i<length or length-1
+        for (int i = 0; i < length - 1; i++) {//并不影响: i<size or size-1
             for (int j = 0; j < length - i - 1; j++) {
                 if (array[j] < array[j + 1]) {
                     array[j] = array[j + 1] + array[j];
@@ -83,8 +83,8 @@ public class RankUtils {
             }
         }
         //误区 此时array[temp_index]并没有变，变得只是temp_value
-//        int length = array.length;
-//        for (int i = 0; i < length - 1; i++) {
+//        int size = array.size;
+//        for (int i = 0; i < size - 1; i++) {
 //            int temp = i + 1;
 //            int temp_value = array[temp];//如果这样的话 最后一行赋值的应该是array[temp]
 //            for (int j = 0; j < temp; j++) {
@@ -140,7 +140,7 @@ public class RankUtils {
     }
 
     private static int[] merge(int[] left, int[] right) {
-        System.out.println("merge left.length=" + left.length + ",merge right.length=" + right.length);
+        System.out.println("merge left.size=" + left.length + ",merge right.size=" + right.length);
         int[] result = new int[left.length + right.length];
         for (int index = 0, i = 0, j = 0; index < result.length; index++) {
             if (i >= left.length)

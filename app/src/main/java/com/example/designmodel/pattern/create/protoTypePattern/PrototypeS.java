@@ -1,16 +1,11 @@
 package com.example.designmodel.pattern.create.protoTypePattern;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 /**
- * Created by hp on 2020/3/10.
+ * Created by hp on 2020/6/28.
  */
-public class Prototype implements Cloneable, Serializable {
+public class PrototypeS implements Cloneable{
     private static final long serialVersionUID = 1L;
     private String string;
     private int intValue;
@@ -22,26 +17,12 @@ public class Prototype implements Cloneable, Serializable {
      * @throws CloneNotSupportedException
      */
     @Override
-    protected Object clone() throws CloneNotSupportedException {
-        Prototype prototype = (Prototype) super.clone();//object里的 浅复制
+    protected PrototypeS clone() throws CloneNotSupportedException {
+        PrototypeS prototype = (PrototypeS) super.clone();//object里的
+        prototype.serializableObject = prototype.serializableObject.clone();//deep copy
         return prototype;
     }
 
-    /*
-     *深复制
-     *
-     * 要实现深复制，需要采用流的形式读入当前对象的二进制输入，再写出二进制数据对应的对象。
-     * */
-    public Object deepClone() throws IOException, ClassNotFoundException {
-        /* 写入当前对象的二进制流 */
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        ObjectOutputStream oos = new ObjectOutputStream(bos);
-        oos.writeObject(this);
-        /* 读出二进制流产生的新对象 */
-        ByteArrayInputStream bis = new ByteArrayInputStream(bos.toByteArray());
-        ObjectInputStream ois = new ObjectInputStream(bis);
-        return ois.readObject();
-    }
 
     public String getString() {
         return string == null ? "" : string;
@@ -74,7 +55,12 @@ public class Prototype implements Cloneable, Serializable {
                 '}';
     }
 
-    public static class SerializableObject implements Serializable {
+    public static class SerializableObject implements Cloneable {
         private static final long serialVersionUID = 1L;
+
+        @Override
+        protected SerializableObject clone() throws CloneNotSupportedException {
+            return (SerializableObject) super.clone();
+        }
     }
 }

@@ -16,7 +16,7 @@ public class TestRank {
         //insertSort();
         //shellSort();
         //int[] array = mergeSort(TestRank.array);
-        //quickSort(array, 0, array.length - 1);
+        //quickSort(array, 0, array.size - 1);
         heapSort();
         for (int i = 0; i < array.length; i++) {
             System.out.print(array[i] + ",");

@@ -40,7 +40,7 @@ public class SetTest {
         }
         //one set oom
 //        Set<Integer> set = new HashSet<>();
-//        for (int i = 0; i < array.length; i++) {
+//        for (int i = 0; i < array.size; i++) {
 //            boolean isAdd = set.add(array[i]);
 //            if (!isAdd) {
 //                System.out.println("=====" + array[i]);

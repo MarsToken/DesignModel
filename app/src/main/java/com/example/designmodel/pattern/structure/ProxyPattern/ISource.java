@@ -1,4 +1,4 @@
-package com.example.designmodel.pattern.structure.ProxyPattern.staticProxy;
+package com.example.designmodel.pattern.structure.ProxyPattern;
 
 /**
  * Created by hp on 2020/3/13.

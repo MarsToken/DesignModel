@@ -5,28 +5,33 @@ package com.example.designmodel.datastructure;
  */
 public class Test {
     public static void main(String[] args) {
-        LinkNode linkNode = new LinkNode();
-        linkNode.insert(0, "1");
-        linkNode.insert(1, "3");
-        linkNode.insert(2, "4");
-        linkNode.insert(3, "5");
-        //linkNode.delete(1);
-        linkNode.outPut();
+        LinkedNode linkNode = new LinkedNode();
+        linkNode.insert(0, 1);
+        linkNode.insert(1, 3);
+        linkNode.insert(2, 4);
+        linkNode.insert(3, 5);
+        linkNode.delete(2);
+        linkNode.output();
     }
 
-    public static class LinkNode {
+    public static class LinkedNode {
         public Node head;
         public Node last;
         public int size;
 
-        public void insert(int index, String value) {
+
+        private void throwOutOfBoundsException() {
+            throw new IndexOutOfBoundsException();
+        }
+
+        public void insert(int index, int value) {
             if (index < 0 || index > size) {
-                throwIndexOutOfBoundsException();
+                throwOutOfBoundsException();
             }
             Node insertNode = new Node(value);
             if (size == 0) {
                 head = insertNode;
-                last = head;
+                last = insertNode;
             } else if (index == 0) {
                 insertNode.next = head;
                 head = insertNode;
@@ -42,8 +47,8 @@ public class Test {
         }
 
         public void delete(int index) {
-            if (index < 0 || index >= size) {
-                throwIndexOutOfBoundsException();
+            if (index < 0 || index > size - 1) {
+                throwOutOfBoundsException();
             }
             if (index == 0) {
                 head = head.next;
@@ -54,42 +59,39 @@ public class Test {
             } else {
                 Node pre = query(index - 1);
                 pre.next = pre.next.next;
-
             }
             size--;
         }
 
         public Node query(int index) {
-            if (index < 0 || index > size) {
-                throwIndexOutOfBoundsException();
+            if (index < 0 || index > size - 1) {
+                throwOutOfBoundsException();
             }
-            Node node = head;
+            Node temp = head;
             for (int i = 0; i < index; i++) {
-                node = node.next;
+                temp = temp.next;
             }
-            return node;
+            return temp;
         }
 
-        public void outPut() {
+        public void output() {
             Node node = head;
-            while (node.next != null) {
+            while (node != null) {
                 System.out.println(node.value);
                 node = node.next;
             }
         }
-
-        private void throwIndexOutOfBoundsException() {
-            throw new IndexOutOfBoundsException();
-        }
-
     }
 
+
     public static class Node {
-        public String value;
+        public int value;
         public Node next;
 
-        public Node(String value) {
+        public Node(int value) {
             this.value = value;
         }
     }
+
+
 }

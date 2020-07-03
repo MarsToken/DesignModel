@@ -1,4 +1,4 @@
-package com.example.designmodel.thread;
+package com.example.lib;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.FutureTask;
@@ -12,7 +12,8 @@ public class TestThread {
 //        new Thread(runnable, "-1").start();
 //        new Thread(runnable, "-2").start();
 
-        new MyThread3().createNewThread();
+//        new MyThread3().createNewThread();
+
         /*
         * 线程生命周期：新建，就绪，运行，阻塞，死亡
         * 新建 (start)-> 就绪(获取服务器资源) -> 运行（1.run or call 方法执行完，2.error，3.exception，4.stop方法）-> 死亡
@@ -28,8 +29,8 @@ public class TestThread {
         * setDaemon(true);
         *   由于前台线程都结束，故后台线程也结束，程序over,但可能会存在几毫秒的延迟
         * */
-        testJoin();
-
+        //testJoin();
+        tetYield();
     }
 
     public static class Thread2 implements Runnable{
@@ -74,15 +75,28 @@ public class TestThread {
             }
         }
     }
-    private static void testJoin() {
-        new JoinThread("子线程1").start();
+
+    private static void tetYield() {
+        new JoinThread("child thread 1").setProxy(Thread.MIN_PRIORITY).start();
         for (int i = 0; i < 100; i++) {
-            System.out.println(Thread.currentThread().getName() + ",i=" + i);
+            System.out.println(Thread.currentThread().getName() + "," + Thread.currentThread().getPriority() + ",i=" + i);
             if (i == 20) {
-                JoinThread jt = new JoinThread("子线程2");
+                JoinThread jt = new JoinThread("child thread 2").setProxy(Thread.MAX_PRIORITY);
+                jt.start();
+                jt.yield();//让步，让系统的线程调度器重新调度一次，让其进入就绪状态，只有优先级比当前高或相同的线程才有机会执行
+            }
+        }
+    }
+
+    private static void testJoin() {
+        new JoinThread("child thread 1").start();
+        for (int i = 0; i < 30; i++) {
+            System.out.println(Thread.currentThread().getName() + "," + Thread.currentThread().getPriority() + ",i=" + i);
+            if (i == 20) {
+                JoinThread jt = new JoinThread("child thread 2");
                 jt.start();
                 try {
-                    jt.join();//子线程2加入到主线程，主线程阻塞，子线程1和子线程2继续执行，等到1,2执行完毕，主线程继续执行
+                    jt.join();//子线程2加入到主线程，主线程阻塞，子线程1和子线程2继续执行，等到1,2执行完毕，主线程继续执行-多核无效！
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -95,11 +109,17 @@ public class TestThread {
         public JoinThread(String name) {
             this.name=name;
         }
+
+        public JoinThread setProxy(int level) {
+            setPriority(level);
+            return this;
+        }
         @Override
         public void run() {
             for (int i = 0; i < 100; i++) {
-                System.out.println(name + ",i=" + i);
+                System.out.println(name +","+Thread.currentThread().getPriority()+ ",i=" + i);
             }
         }
     }
+
 }

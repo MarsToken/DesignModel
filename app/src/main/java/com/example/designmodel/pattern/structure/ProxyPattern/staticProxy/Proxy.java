@@ -1,5 +1,8 @@
 package com.example.designmodel.pattern.structure.ProxyPattern.staticProxy;
 
+import com.example.designmodel.pattern.structure.ProxyPattern.ISource;
+import com.example.designmodel.pattern.structure.ProxyPattern.Source;
+
 /**
  * Created by hp on 2020/3/13.
  */

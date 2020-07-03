@@ -4,7 +4,7 @@ package com.example.designmodel.datastructure;
  * 数据结构之链表
  * Created by hp on 2020/4/1.
  */
-public class LinkedList {
+public class LinkedNodeTest {
     public static void main(String[] args) {
         LinkNode linkNode = new LinkNode();
         linkNode.insert(0, 1);
@@ -17,6 +17,7 @@ public class LinkedList {
 
     /**
      * query 只能用一次，这涉及到时间复杂度度问题，所以不宜使用多次，导致效率降低
+     * 核心，切断next线，改变头尾
      * 先操作链表，再操作内部
      */
     public static class LinkNode {
@@ -24,6 +25,12 @@ public class LinkedList {
         private Node last;
         private int size;
 
+        /**
+         * o(O)头部，尾部=1，中间=n/2
+         *
+         * @param index
+         * @param value
+         */
         public void insert(int index, int value) {
             if (index < 0 || index > size) {//易错点！此处是>size
                 throwIndexOutOfBoundsException();

@@ -1,5 +1,9 @@
 package com.example.designmodel.pattern.structure.ProxyPattern.staticProxy;
 
+import com.example.designmodel.pattern.structure.ProxyPattern.ISource;
+import com.example.designmodel.pattern.structure.ProxyPattern.Source;
+import com.example.designmodel.pattern.structure.ProxyPattern.dynamicPattern.DynamicProxy;
+
 /**
  * 代理模式的应用场景：
  * 如果已有的方法在使用的时候需要对原有的方法进行改进，此时有两种办法：
@@ -11,5 +15,11 @@ public class TestMain {
     public static void main(String[] args) {
         ISource source = new Proxy();
         source.method();
+        System.out.println("=============================================");
+        ISource iSources = new Source();
+        DynamicProxy dynamicProxy = new DynamicProxy();
+        dynamicProxy.setTarget(iSources);
+        ISource iSource = (ISource) java.lang.reflect.Proxy.newProxyInstance(iSources.getClass().getClassLoader(), new Class[]{ISource.class}, dynamicProxy);
+        iSource.method();
     }
 }
