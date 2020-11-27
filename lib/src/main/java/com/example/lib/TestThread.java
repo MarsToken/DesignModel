@@ -12,7 +12,7 @@ public class TestThread {
 //        new Thread(runnable, "-1").start();
 //        new Thread(runnable, "-2").start();
 
-//        new MyThread3().createNewThread();
+        new MyThread3().createNewThread();
 
         /*
         * 线程生命周期：新建，就绪，运行，阻塞，死亡
@@ -30,7 +30,8 @@ public class TestThread {
         *   由于前台线程都结束，故后台线程也结束，程序over,但可能会存在几毫秒的延迟
         * */
         //testJoin();
-        tetYield();
+
+//        tetYield();
     }
 
     public static class Thread2 implements Runnable{
@@ -48,17 +49,17 @@ public class TestThread {
                 @Override
                 public String call() throws Exception {
                     int i = 0;
-                    for (; i < 10; i++) {
+                    for (; i < 100; i++) {
                         System.out.println(Thread.currentThread().getName() + ",i=" + i);
                     }
                     return i + "个";
                 }
             });
-            new Thread(task, "thread2").start();
-            for (int i = 0; i < 10; i++) {
+//            new Thread(task, "thread2").start();
+            for (int i = 0; i < 100; i++) {
                 System.out.println(Thread.currentThread().getName() + ",i=" + i);
                 if (i == 5) {
-                    new Thread(task, "thread1").start();//只能执行一次
+                    new Thread(task, "thread1").start();//只能执行一次 //主线程阻塞 直到拿到结果主线程才会继续执行
 //                    Thread.suspend();//容易导致死锁，避免使用，android sdk不让用，抛异常了
 
                     try {
@@ -66,11 +67,11 @@ public class TestThread {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-//                    try {
-//                        System.out.println(task.get());//主线程阻塞 直到拿到结果主线程才会继续执行
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    }
+                    try {
+                        System.out.println("callback ======"+task.get());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }
