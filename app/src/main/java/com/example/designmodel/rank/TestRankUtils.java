@@ -11,10 +11,10 @@ public class TestRankUtils {
     private static final int[] array = new int[]{19, 0, 11,31,21, 33, 34, 878, 5};
 
     public static void main(String[] args) {
-        radixSort();
+        //radixSort();
         //quickRank(array, 0, array.length - 1);
         //float[] array = mergeRank(VideoPlayerActivity.array);
-        //shellRank2();
+        shellRank2();
         //shellRank();
         //insertRank2();
         //insertRank();
@@ -134,7 +134,7 @@ public class TestRankUtils {
         return result;
     }
 
-    private static void shellRank2() {
+    private static void test() {
         int length = array.length, mid = 0;
         do {
             mid = length / 2;
@@ -147,7 +147,23 @@ public class TestRankUtils {
                 }
                 array[j + 1] = current;
             }
-        } while (length == 0);
+        } while (mid == 0);
+    }
+
+    private static void shellRank2() {
+        int length = array.length, mid = length;
+        do {
+            mid  /= 2;
+            for (int i = mid; i < length - 1; i++) {
+                int current = array[i + 1];
+                int j = i;
+                while (j >= 0 && array[j] > current) {
+                    array[j + 1] = array[j];
+                    j--;
+                }
+                array[j + 1] = current;
+            }
+        } while (mid > 0);
     }
 
     private static void insertRank2() {

@@ -1,5 +1,6 @@
 package com.example.designmodel.rank;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -11,14 +12,51 @@ public class TestRank {
     public static void main(String[] args) {
         //bubbleRank();
         //selectRank();
-        //insertSort();
-        //shellSort();
+        //insertSort2();
+        //shellSort2();
         //int[] array = mergeSort(TestRank.array);
         //quickSort(array, 0, array.length - 1);
-        heapSort();
+        //heapSort();
+        //radixRank();
         for (int i = 0; i < array.length; i++) {
             System.out.print(array[i] + ",");
         }
+    }
+
+    private static void radixRank() {
+        int length = array.length;
+        if (length < 1) {
+            return;
+        }
+        int max = array[0];
+        for (int i = 1; i < array.length; i++) {
+            max = Math.max(max, array[i]);
+        }
+        int maxBit = 0;
+        while (max != 0) {
+            max /= 10;
+            maxBit++;
+        }
+        ArrayList<ArrayList<Integer>> queue_out = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            queue_out.add(new ArrayList<Integer>());
+        }
+        for (int i = 0; i < maxBit; i++) {
+            for (int j = 0; j < length; j++) {
+                int x = (int) (array[j] % Math.pow(10, i + 1) / Math.pow(10, i));
+                queue_out.get(x).add(array[j]);
+            }
+            int count = 0;
+            for (int j = 0; j < 10; j++) {
+                ArrayList<Integer> queue_inner = queue_out.get(j);
+                while (queue_inner.size() > 0) {
+                    array[count] = queue_inner.get(0);
+                    queue_inner.remove(0);
+                    count++;
+                }
+            }
+        }
+
     }
 
     private static void heapSort() {
@@ -86,41 +124,41 @@ public class TestRank {
         return result;
     }
 
-    private static void shellRank2() {
-        int length = array.length, mid = 0;
+    private static void test() {
+        int len = array.length;
+        int temp, gap = len / 2;
+        while (gap > 0) {
+            for (int i = gap; i < len; i++) {
+                temp = array[i];
+                int preIndex = i - gap;
+                while (preIndex >= 0 && array[preIndex] > temp) {
+                    array[preIndex + gap] = array[preIndex];
+                    preIndex -= gap;
+                }
+                array[preIndex + gap] = temp;
+            }
+            gap /= 2;
+        }
+    }
+
+    private static void shellSort2() {
+        int length = array.length, gap = length;
         do {
-            mid = length / 2;
-            for (int i = mid; i < length - 1; i++) {
+            gap /= 2;
+            for (int i = gap; i < length - 1; i++) {
                 int current = array[i + 1];
-                int j = i;
-                while (j >= 0 && array[j] > current) {
-                    array[j + 1] = array[j];
-                    j--;
+                int index = i;
+                while (index >= 0 && array[index] > current) {
+                    array[index + 1] = array[index];
+                    index--;
                 }
-                array[j + 1] = current;
+                array[index + 1] = current;
             }
-        } while (mid == 0);
+        } while (gap > 0);
 
     }
 
-    private static void shellSort() {
-        int length = array.length, mid = 0;
-        do {
-            mid = length / 2;
-            for (int i = mid; i < length - 1; i++) {
-                int temp = i + 1;
-                for (int j = 0; j < temp; j++) {
-                    if (array[temp] < array[j]) {//由于序列是排好的，所以理论上只会走一次
-                        array[temp] += array[j];
-                        array[j] = array[temp] - array[j];
-                        array[temp] = array[temp] - array[j];
-                    }
-                }
-            }
-        } while (mid <= 0);
-    }
-
-    private static void insertRank2() {
+    private static void insertSort2() {
         int length = array.length;
         for (int i = 0; i < length - 1; i++) {
             int j = i;
@@ -131,6 +169,24 @@ public class TestRank {
             }
             array[j + 1] = current;
         }
+    }
+
+    private static void shellSort() {
+        int length = array.length, mid = length;
+        do {
+            mid /= 2;
+            System.out.println("mid=" + mid);
+            for (int i = mid; i < length - 1; i++) {
+                int temp = i + 1;
+                for (int j = 0; j < temp; j++) {
+                    if (array[temp] < array[j]) {//由于序列是排好的，所以理论上只会走一次
+                        array[temp] += array[j];
+                        array[j] = array[temp] - array[j];
+                        array[temp] = array[temp] - array[j];
+                    }
+                }
+            }
+        } while (mid > 0);
     }
 
     private static void insertSort() {//非主流，实际上还是特殊的选择排序
