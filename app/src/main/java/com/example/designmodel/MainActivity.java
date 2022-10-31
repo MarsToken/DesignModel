@@ -68,14 +68,14 @@ public class MainActivity extends AppCompatActivity {
         view.invalidate(new Rect());
         receiver();
 
-        HandlerThread handlerThread = new HandlerThread("thread-1"){
-            @Override
-            protected void onLooperPrepared() {
-                System.out.println("looper is prepared!");
-            }
-        };
-        handlerThread.start();
-        Handler handler = new Handler(handlerThread.getLooper()){
+//        HandlerThread handlerThread = new HandlerThread("thread-1"){
+//            @Override
+//            protected void onLooperPrepared() {
+//                System.out.println("looper is prepared!");
+//            }
+//        };
+//        handlerThread.start();
+        Handler handler = new Handler(Looper.getMainLooper()){ // handlerThread.getLooper()
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
         };
         Looper.myQueue().addIdleHandler(idleHandler);
         handler.sendEmptyMessage(1);
-        //停止处理所有主线程的消息队列里的消息
+        //停止处理所有"主线程(取决了哪个消息队列MessageQueue)"的消息队列里的消息
         token = invokePostSyncBarrier(Looper.myQueue());
         //发送插队消息！
         Message msg = Message.obtain();
@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
         handler.sendEmptyMessageDelayed(2, 0);
         handler.sendEmptyMessage(11);
         handler.sendEmptyMessageDelayed(3, 1000);
-        handlerThread.getLooper().quitSafely();
+        //handlerThread.getLooper().quitSafely();
         //handler.removeCallbacksAndMessages(null);
         //handler.getLooper().quitSafely();//主线程无法退出！
         handler.sendEmptyMessageDelayed(4, 0);
@@ -203,7 +203,7 @@ public class MainActivity extends AppCompatActivity {
             Method method = clazz.getMethod("postSyncBarrier");
             method.setAccessible(true);
             int syncBarrierNumber = (int) method.invoke(obj);
-            System.out.println("=====================invokeRemoveAsyncBarrier===============success=====================" + syncBarrierNumber);
+            System.out.println("=====================invokePostSyncBarrier===============success=====================" + syncBarrierNumber);
             return syncBarrierNumber;
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
