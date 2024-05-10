@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
-import android.databinding.DataBindingUtil;
 import android.graphics.Rect;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -24,11 +23,6 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.example.designmodel.databinding.ActivityMainBinding;
-import com.example.designmodel.jvm.JVMPromote;
-import com.example.designmodel.mvvm.TestBean;
-import com.example.designmodel.mvvm.TestViewModel;
-
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -41,27 +35,20 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
     };
-    private Handler mAsyncHandler = new Handler(){
+    private Handler mAsyncHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             System.out.println("======================sync handler!=============what=" + msg.what);
-            invokeRemoveAsyncBarrier(Looper.myQueue(),token);
+            invokeRemoveAsyncBarrier(Looper.myQueue(), token);
         }
     };
-    private TestViewModel testViewModel;
     private int token;
+
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP_MR1)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        TestBean testBean = new TestBean();
-        binding.setUser(testBean);
-        ViewModelProvider provider = new ViewModelProvider(this, new TestViewModel.TestFactory("111"));
-
-        testViewModel = provider.get(TestViewModel.class);
-        testViewModel.doAction();
         //startActivity(new Intent(this,LiveDataActivity.class));
 
         View view = new View(this);
@@ -75,11 +62,12 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        };
 //        handlerThread.start();
-        Handler handler = new Handler(Looper.getMainLooper()){ // handlerThread.getLooper()
+        Handler handler = new Handler(Looper.getMainLooper()) { // handlerThread.getLooper()
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
-                System.out.println(String.format("==========thread name = %s, msg=%s", Thread.currentThread().getName(), msg.toString()));
+                System.out.println(String.format("==========thread name = %s, msg=%s",
+                    Thread.currentThread().getName(), msg.toString()));
             }
         };
         Looper.myQueue().addIdleHandler(idleHandler);
@@ -90,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         Message msg = Message.obtain();
         msg.setAsynchronous(true);
         msg.what = 999;
-        mAsyncHandler.sendMessageDelayed(msg,3000);
+        mAsyncHandler.sendMessageDelayed(msg, 3000);
         handler.sendEmptyMessageDelayed(2, 0);
         handler.sendEmptyMessage(11);
         handler.sendEmptyMessageDelayed(3, 1000);
@@ -147,7 +135,8 @@ public class MainActivity extends AppCompatActivity {
 //                bindService(new Intent(MainActivity.this, CustomService.class), new ServiceConnection() {
 //                    @Override
 //                    public void onServiceConnected(ComponentName name, IBinder service) {//main
-//                        System.out.println("Thread name is " + Thread.currentThread().getName() + ",component name is" + name);
+//                        System.out.println("Thread name is " + Thread.currentThread().getName() + ",component name
+//                        is" + name);
 //                    }
 //
 //                    @Override
@@ -188,7 +177,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClick(View view) {
-        startActivity(new Intent(this, KotlinDemoActivity.class));
     }
 
     @Override
@@ -203,7 +191,8 @@ public class MainActivity extends AppCompatActivity {
             Method method = clazz.getMethod("postSyncBarrier");
             method.setAccessible(true);
             int syncBarrierNumber = (int) method.invoke(obj);
-            System.out.println("=====================invokePostSyncBarrier===============success=====================" + syncBarrierNumber);
+            System.out.println("=====================invokePostSyncBarrier===============success" +
+                "=====================" + syncBarrierNumber);
             return syncBarrierNumber;
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
@@ -215,13 +204,14 @@ public class MainActivity extends AppCompatActivity {
         return -1;
     }
 
-    private void invokeRemoveAsyncBarrier(MessageQueue obj,int token) {
+    private void invokeRemoveAsyncBarrier(MessageQueue obj, int token) {
         Class<MessageQueue> clazz = (Class<MessageQueue>) obj.getClass();
         try {
-            Method method = clazz.getMethod("removeSyncBarrier",int.class);
+            Method method = clazz.getMethod("removeSyncBarrier", int.class);
             method.setAccessible(true);
             method.invoke(obj, token);
-            System.out.println("======================invokeRemoveAsyncBarrier=================success=====================");
+            System.out.println("======================invokeRemoveAsyncBarrier=================success" +
+                "=====================");
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {

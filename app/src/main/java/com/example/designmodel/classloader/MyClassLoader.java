@@ -1,4 +1,4 @@
-package com.example.lib.classloader;
+package com.example.designmodel.classloader;
 
 /**
  * Created by hp on 2020/5/27.
@@ -14,8 +14,17 @@ public class MyClassLoader extends ClassLoader{
 
     private String classpath;
 
-    public MyClassLoader(String classpath) {
-
+    /**
+     *
+     * @param parent 不指定，默认是AppClassLoader，他会默认加载！
+     *
+     *               默认的类加载器
+     *               ClassLoaders$AppClassLoader parent
+     *               ClassLoaders$PlatformClassLoader parent.parent
+     * @param classpath 要加载的class的环境变量
+     */
+    public MyClassLoader(ClassLoader parent,String classpath) {
+        super(parent);
         this.classpath = classpath;
     }
 
@@ -40,11 +49,13 @@ public class MyClassLoader extends ClassLoader{
     }
     //返回类的字节码
     private byte[] getDate(String className) throws IOException{
+        System.out.println("name is "+className);
         InputStream in = null;
         ByteArrayOutputStream out = null;
         String path=classpath + File.separatorChar +
                 className.replace('.',File.separatorChar)+".class";
         try {
+            System.out.println("path is " + path);
             in=new FileInputStream(path);
             out=new ByteArrayOutputStream();
             byte[] buffer=new byte[2048];
@@ -62,5 +73,12 @@ public class MyClassLoader extends ClassLoader{
             out.close();
         }
         return null;
+    }
+
+    @Override
+    public String toString() {
+        return "MyClassLoader{" +
+            "classpath='" + classpath + '\'' +
+            '}';
     }
 }

@@ -1,6 +1,8 @@
 package com.example.designmodel.pattern.behaviour.thirdclass.visitorPattern;
 
 /**
+ * 主人-数据结构模型
+ *
  * Created by hp on 2020/3/31.
  */
 public interface Subject {
