@@ -1,5 +1,7 @@
 package com.example.designmodel.pattern.create.factoryMethod;
 
+import android.content.Intent;
+
 import com.example.designmodel.pattern.create.factoryMethod.common.factory.AppleFactory;
 import com.example.designmodel.pattern.create.factoryMethod.common.factory.BananaFactory;
 import com.example.designmodel.pattern.create.factoryMethod.common.factory.IFruitFactory;

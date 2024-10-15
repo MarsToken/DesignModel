@@ -21,6 +21,9 @@ public class MyClassLoader extends ClassLoader{
      *               默认的类加载器
      *               ClassLoaders$AppClassLoader parent
      *               ClassLoaders$PlatformClassLoader parent.parent
+     *               Android环境：
+     *               PathClassLoader
+     *               BootClassLoader
      * @param classpath 要加载的class的环境变量
      */
     public MyClassLoader(ClassLoader parent,String classpath) {
