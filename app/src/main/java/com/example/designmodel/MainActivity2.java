@@ -89,8 +89,6 @@ public class MainActivity2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
         RelativeLayout rl = findViewById(R.id.rl);
-        WebView webView = new WebView(this);
-        webView.addJavascriptInterface();
         ViewGroup.LayoutParams rlLayoutParams = rl.getLayoutParams();
         rlLayoutParams.height = 300;
         rl.setLayoutParams(rlLayoutParams);

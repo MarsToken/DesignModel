@@ -9,10 +9,18 @@ public class LinkedNodeTest {
         LinkNode linkNode = new LinkNode();
         linkNode.insert(0, 1);
         linkNode.insert(1, 3);
-//        linkNode.insert(2, 4);
-//        linkNode.insert(2, 5);
-        linkNode.delete(1);
+        linkNode.insert(2, 4);
+        linkNode.insert(3, 5);
+        // linkNode.delete(1);
         linkNode.output();
+        revertLink(linkNode);
+    }
+
+    private static void revertLink(LinkNode linkNode) {
+        if(linkNode == null){
+            return;
+        }
+
     }
 
     /**
