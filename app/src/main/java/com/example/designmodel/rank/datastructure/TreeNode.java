@@ -2,8 +2,10 @@ package com.example.designmodel.rank.datastructure;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 
 /**
@@ -15,6 +17,24 @@ public class TreeNode {
     public int value;
     public TreeNode left;
     public TreeNode right;
+
+    /**
+     * 1
+     * 7   3
+     * 4 5  6 7
+     *
+     * @param args
+     */
+    public static void main(String[] args) {
+        TreeNode root = new TreeNode(1);
+        root.left = new TreeNode(7);
+        root.right = new TreeNode(3);
+        root.left.left = new TreeNode(4);
+        root.left.right = new TreeNode(5);
+        root.right.left = new TreeNode(6);
+        root.right.right = new TreeNode(7);
+
+    }
 
     public TreeNode(int value) {
         this.value = value;
@@ -35,6 +55,26 @@ public class TreeNode {
             }
         }
         return list;
+    }
+
+    public int getMaxWidth(TreeNode root) {
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        int maxSize = 0;
+        while (!queue.isEmpty()) {
+            int currentSize=queue.size();
+            maxSize = Math.max(maxSize, currentSize);
+            for (int i = 0; i < currentSize; i++) {
+                TreeNode node = queue.poll();
+                if (node.left != null) {
+                    queue.offer(node.left);
+                }
+                if (node.right != null) {
+                    queue.offer(node.right);
+                }
+            }
+        }
+        return maxSize;
     }
 
     /**
