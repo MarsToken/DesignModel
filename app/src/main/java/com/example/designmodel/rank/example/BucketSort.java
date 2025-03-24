@@ -57,24 +57,18 @@ public class BucketSort {
         }
     }
 
-    private static int[] findMaxAndMin(int[] array) {
-        int min = array[0];
+    private static int findMax(int[] array) {
         int max = array[0];
         for (int i = 1; i < array.length; i++) {
             if (array[i] > max) {
                 max = array[i];
             }
-            if (array[i] < min) {
-                min = array[i];
-            }
         }
-        return new int[]{max, min};
+        return max;
     }
 
     private static void buketSort(int[] array) {
-        int[] result = findMaxAndMin(array);
-        int max = result[0];
-        int min = result[1];
+        int max = findMax(array);
         int deep = 2;
         int size = array.length / deep;
         List<List<Integer>> buckets = new ArrayList<>();
@@ -82,7 +76,7 @@ public class BucketSort {
             buckets.add(new ArrayList<>());
         }
         for (Integer element : array) {
-            int index = element / (max - min) * (size);
+            int index = (element) / (max) * (size - 1);
             buckets.get(index).add(element);
         }
         for (List<Integer> bucket : buckets) {
@@ -95,6 +89,5 @@ public class BucketSort {
             }
         }
     }
-
 
 }

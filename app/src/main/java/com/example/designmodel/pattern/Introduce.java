@@ -117,7 +117,7 @@ package com.example.designmodel.pattern;
 public class Introduce {
     public static void main(String[] args) {
         /*
-         * 两厂单例原构建，
+         * 两厂一单原构建，
          * 外代组享装适桥。
          * 策略模板两状态，
          * 观迭任命终结者。
