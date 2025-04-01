@@ -44,6 +44,7 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.concurrent.locks.ReentrantLock;
 
 /*
  * 所有成员变量都在堆中
@@ -80,6 +81,8 @@ public class MainActivity2 extends AppCompatActivity {
     private IAppListener listener = new IAppListener() {
         @Override
         public void onCallBack() {
+            ReentrantLock lock = new ReentrantLock();
+
             test();
         }
     };

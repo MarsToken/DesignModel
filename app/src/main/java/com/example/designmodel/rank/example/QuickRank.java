@@ -32,14 +32,14 @@ public class QuickRank {
     }
 
     /* 元素交换 */
-    static void swap(int[] nums, int i, int j) {
+    private static void swap(int[] nums, int i, int j) {
         int tmp = nums[i];
         nums[i] = nums[j];
         nums[j] = tmp;
     }
 
     /* 哨兵划分 */
-    static int partition(int[] nums, int left, int right) {
+    private static int partition(int[] nums, int left, int right) {
         // 以 nums[left] 为基准数
         int i = left, j = right;
         while (i < j) {

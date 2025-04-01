@@ -1,5 +1,8 @@
 package com.example.designmodel;
 
+import android.arch.lifecycle.Lifecycle;
+import android.arch.lifecycle.LifecycleObserver;
+import android.arch.lifecycle.OnLifecycleEvent;
 import android.arch.lifecycle.ViewModelProvider;
 import android.content.ComponentName;
 import android.content.Context;
@@ -22,6 +25,7 @@ import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.Choreographer;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -35,6 +39,13 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 public class MainActivity extends AppCompatActivity {
+    public class MyObserver implements LifecycleObserver {
+        @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+        void onResume() {
+            System.out.println("onResume!!!");
+        }
+    }
+
     private MessageQueue.IdleHandler idleHandler = new MessageQueue.IdleHandler() {
         @Override
         public boolean queueIdle() {
@@ -56,12 +67,17 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        startActivity(new Intent(this,MainActivity2.class));
+        startActivity(new Intent(this, MainActivity2.class));
+        Choreographer.getInstance().postFrameCallback(new Choreographer.FrameCallback() {
+            @Override
+            public void doFrame(long frameTimeNanos) {
 
+            }
+        });
         View view = new View(this);
         view.invalidate(new Rect());
         receiver();
-
+        getLifecycle().addObserver(new MyObserver());
 //        HandlerThread handlerThread = new HandlerThread("thread-1"){
 //            @Override
 //            protected void onLooperPrepared() {

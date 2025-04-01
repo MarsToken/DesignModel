@@ -62,7 +62,7 @@ public class TreeNode {
         queue.add(root);
         int maxSize = 0;
         while (!queue.isEmpty()) {
-            int currentSize=queue.size();
+            int currentSize = queue.size();
             maxSize = Math.max(maxSize, currentSize);
             for (int i = 0; i < currentSize; i++) {
                 TreeNode node = queue.poll();
@@ -98,5 +98,14 @@ public class TreeNode {
         midOrder(list, root.left);
         list.add(root.value);
         midOrder(list, root.right);
+    }
+
+    public static void afterOrder(List<Integer> list, TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        afterOrder(list, root.left);
+        afterOrder(list, root.right);
+        list.add(root.value);
     }
 }

@@ -21,7 +21,7 @@ public class MergeRank {
         }
     }
 
-    static int[] mergeSort(int[] array) {
+    private static int[] mergeSort(int[] array) {
         int length = array.length;
         if (length < 2) {
             return array;
@@ -32,7 +32,7 @@ public class MergeRank {
         return merge(mergeSort(left), mergeSort(right));
     }
 
-    static int[] merge(int[] left, int[] right) {
+    private static int[] merge(int[] left, int[] right) {
         int length = left.length + right.length;
         int[] result = new int[length];
         for (int i = 0, index_left = 0, index_right = 0; i < length; i++) {

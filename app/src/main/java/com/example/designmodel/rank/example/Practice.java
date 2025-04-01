@@ -1,12 +1,5 @@
 package com.example.designmodel.rank.example;
 
-import android.arch.lifecycle.ViewModel;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.logging.Level;
-
 /**
  * Created by WangMaoBo.
  * Date: 2025/3/6
@@ -20,43 +13,45 @@ public class Practice {
             return;
         }
         int length = array.length;
-        bucketRank(array);
+        heapRank(array);
         for (int i = 0; i < length; i++) {
             System.out.println(array[i] + " ");
         }
 
     }
 
-    private static void bucketRank(int[] array) {
-        int bucket_deep = 2;
-        int bucket_count = array.length / bucket_deep;
-        List<List<Integer>> buckets = new ArrayList<>();
-        for (int i = 0; i < bucket_count; i++) {
-            buckets.add(new ArrayList<>());
+    private static void heapRank(int[] array) {
+        for (int i = array.length / 2 - 1; i >= 0; i--) {
+            siftDown(array, array.length, i);
         }
-        for (int element : array) {
-            int index = getIndex(array, element, bucket_count);
-            buckets.get(index).add(element);
-        }
-        for (List<Integer> bucket : buckets) {
-            Collections.sort(bucket);
-        }
-        int index = 0;
-        for (List<Integer> bucket : buckets) {
-            for (int element : bucket) {
-                array[index++] = element;
-            }
+        for (int i = array.length - 1; i > 0; i--) {
+            int temp = array[0];
+            array[0]=array[i];
+            array[i] = temp;
+            siftDown(array, i, 0);
         }
     }
 
-    private static int getIndex(int[] array, int element, int bucket_count) {
-        int max = array[0];
-        for (int i = 1; i < array.length; i++) {
-            if(max<array[i]){
-                max=array[i];
+    private static void siftDown(int[] array, int length, int i) {
+        while (true) {
+            int left = i * 2 + 1;
+            int right = i * 2 + 2;
+            int mid = i;
+            if (left < length && array[left] > array[mid]) {
+                mid = left;
             }
+            if (right < length && array[right] > array[mid]) {
+                mid = right;
+            }
+            if (mid == i) {
+                break;
+            }
+            int temp = array[i];
+            array[i] = array[mid];
+            array[mid] = temp;
+            i = mid;
         }
-        return element / max * (bucket_count - 1);
     }
+
 
 }

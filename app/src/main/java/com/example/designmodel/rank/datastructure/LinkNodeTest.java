@@ -6,6 +6,7 @@ package com.example.designmodel.rank.datastructure;
  */
 
 public class LinkNodeTest {
+
     public static void main(String[] args) {
         LinkNode head = new LinkNode(0);
 //        LinkNode current = head;
@@ -45,6 +46,7 @@ public class LinkNodeTest {
         }
         return pre;
     }
+
 }
 
 class LinkNode {
