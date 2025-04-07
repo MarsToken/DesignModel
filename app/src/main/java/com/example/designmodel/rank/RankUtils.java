@@ -23,6 +23,35 @@ public class RankUtils {
         }
     }
 
+    public void quickRank(int[] array, int left, int right) {
+        if (left >= right) {
+            return;
+        }
+        int baseIndex = partition(array, left, right);
+        quickRank(array, 0, baseIndex - 1);
+        quickRank(array, baseIndex + 1, right);
+    }
+
+    private int partition(int[] array, int left, int right) {
+        int i = left, j = right;
+        while (i < j) {
+            while (i < j && array[left] <= array[j]) {
+                j--;
+            }
+            while (i < j && array[left] >= array[i]) {
+                i++;
+            }
+            swap(array, i, j);
+        }
+        swap(array, left, i);
+        return i;
+    }
+
+    private void swap(int[] array, int i, int j) {
+        int temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
 
     /**
      * 思路：

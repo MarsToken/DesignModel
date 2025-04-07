@@ -15,6 +15,7 @@ public interface Subject {
 
     /**
      * 暴露给参观者的值
+     * 数据结构为String
      *
      * @return
      */

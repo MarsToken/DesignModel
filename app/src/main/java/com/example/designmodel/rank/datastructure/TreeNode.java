@@ -100,7 +100,8 @@ public class TreeNode {
         midOrder(list, root.right);
     }
 
-    public static void afterOrder(List<Integer> list, TreeNode root) {
+
+    public void afterOrder(List<Integer> list, TreeNode root) {
         if (root == null) {
             return;
         }
@@ -108,4 +109,37 @@ public class TreeNode {
         afterOrder(list, root.right);
         list.add(root.value);
     }
+
+    public int dfs(TreeNode root) {
+        Queue<TreeNode> queue = new LinkedList();
+        queue.add(root);
+        int maxSize = 0;
+        while (!queue.isEmpty()) {
+            int currentSize = queue.size();
+            maxSize = Math.max(maxSize, currentSize);
+            for (int i = 0; i < currentSize; i++) {
+                TreeNode node = queue.poll();
+                if (node.left != null) {
+                    queue.add(node.left);
+                }
+                if (node.right != null) {
+                    queue.add(node.right);
+                }
+            }
+        }
+        return maxSize;
+    }
+
+    public int feiBo(int n) {
+        if (n <= 1) return n;
+        // return feiBo(n - 1) + feiBo(n - 2);
+        int a = 0, b = 1;
+        for (int i = 0; i <= n; i++) {
+            int sum = a + b;
+            a = b;
+            b = sum;
+        }
+        return b;
+    }
+
 }

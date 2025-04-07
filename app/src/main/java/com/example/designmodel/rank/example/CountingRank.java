@@ -16,7 +16,7 @@ public class CountingRank {
         if (length < 2) {
             return;
         }
-        countingSort(array);
+        countingSorts(array);
         for (int i = 0; i < length; i++) {
             System.out.println(array[i] + " ");
         }
@@ -48,4 +48,39 @@ public class CountingRank {
         }
 
     }
+
+    /**
+     * 支持包含负数的计数排序
+     */
+    private static void countingSorts(int[] array) {
+        if (array.length == 0) return;
+
+        // 1. 同时找出最大值和最小值
+        int max = array[0];
+        int min = array[0];
+        for (int num : array) {
+            if (num > max) max = num;
+            if (num < min) min = num;
+        }
+
+        // 计算偏移量（将min映射到0）
+        int offset = -min;
+        int range = max - min + 1;
+        int[] buckets = new int[range];
+
+        // 2. 统计元素频率（应用偏移量）
+        for (int num : array) {
+            buckets[num + offset]++;
+        }
+
+        // 3. 回写排序结果（恢复原始值）
+        int index = 0;
+        for (int i = 0; i < buckets.length; i++) {
+            int originalValue = i - offset; // 恢复原始数值
+            for (int j = 0; j < buckets[i]; j++) {
+                array[index++] = originalValue;
+            }
+        }
+    }
+
 }
