@@ -1,6 +1,7 @@
 package com.example.designmodel.rank.example;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -223,5 +224,61 @@ public class LeetCode {
             result.next = resultRight.next;
         }
         return result;
+    }
+
+    // 56. 合并区间
+    public int[][] merge(int[][] intervals) {
+        Arrays.sort(intervals, (a, b) -> (a[0] - b[0]));
+        int index = -1;
+        int[][] result = new int[intervals.length][2];
+        for (int i = 0; i < intervals.length; i++) {
+            int[] current = intervals[i];
+            if (index == -1 || result[index][1] < current[0]) {
+                result[++index] = current;
+            } else {
+                result[index][1] = Math.max(result[index][1], current[1]);
+            }
+        }
+        return Arrays.copyOf(result, index + 1);
+    }
+
+    // 215. 数组中的第K个最大元素
+    public int findKthLargest(int[] nums, int k) {
+        if (nums.length <= 0) {
+            return -1;
+        }
+        int max = nums[0], min = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            if (max < nums[i]) {
+                max = nums[i];
+            }
+            if (min > nums[i]) {
+                min = nums[i];
+            }
+        }
+        int offset = 0;
+        if (min < 0) {
+            offset = -min;
+        }
+        int[] buckets = new int[max + 1 + offset];
+        for (int i = 0; i < nums.length; i++) {
+            buckets[nums[i] + offset]++;
+        }
+        int index = 0;
+        for (int i = 0; i < buckets.length; i++) {
+            for (int j = 0; j < buckets[i]; j++) {
+                nums[index++] = i - offset;
+            }
+        }
+        return nums[nums.length - k];
+    }
+
+    // LCR 078. 合并 K 个升序链表
+    public ListNode mergeKLists(ListNode[] lists) {
+        ListNode current = null;
+        for (int i = 0; i < lists.length; i++) {
+            current = mergeTwoLists(current, lists[i]);
+        }
+        return current;
     }
 }

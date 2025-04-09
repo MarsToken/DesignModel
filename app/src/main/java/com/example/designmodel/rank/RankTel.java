@@ -107,7 +107,7 @@ public class RankTel {
         return merge(mergeSort(left), mergeSort(right));
     }
 
-    public static int[] merge(int[] left, int[] right) {
+    private static int[] merge(int[] left, int[] right) {
         int[] result = new int[left.length + right.length];
         for (int i = 0, left_index = 0, right_index = 0; i < result.length; i++) {
             if (left_index >= left.length) {

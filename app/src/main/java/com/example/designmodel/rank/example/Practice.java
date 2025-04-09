@@ -1,5 +1,7 @@
 package com.example.designmodel.rank.example;
 
+import java.util.Arrays;
+
 /**
  * Created by WangMaoBo.
  * Date: 2025/3/6
@@ -13,44 +15,42 @@ public class Practice {
             return;
         }
         int length = array.length;
-        heapRank(array);
+        quickRank(array,0,length-1);
         for (int i = 0; i < length; i++) {
             System.out.println(array[i] + " ");
         }
 
     }
 
-    private static void heapRank(int[] array) {
-        for (int i = array.length / 2 - 1; i >= 0; i--) {
-            siftDown(array, array.length, i);
+    private static void quickRank(int[] array, int left, int right) {
+        if(left>=right){
+            return;
         }
-        for (int i = array.length - 1; i > 0; i--) {
-            int temp = array[0];
-            array[0]=array[i];
-            array[i] = temp;
-            siftDown(array, i, 0);
-        }
+        int baseIndex=getBaseIndex(array,left,right);
+        quickRank(array, 0, baseIndex - 1);
+        quickRank(array,baseIndex+1,right);
     }
 
-    private static void siftDown(int[] array, int length, int i) {
-        while (true) {
-            int left = i * 2 + 1;
-            int right = i * 2 + 2;
-            int mid = i;
-            if (left < length && array[left] > array[mid]) {
-                mid = left;
+    private static int getBaseIndex(int[] array, int left, int right) {
+        int i=left,j=right;
+        while (i<j){
+            while (i<j&&array[left]>=array[j]){
+                j--;
             }
-            if (right < length && array[right] > array[mid]) {
-                mid = right;
+            while (i<j&&array[left]<=array[i]){
+                i++;
             }
-            if (mid == i) {
-                break;
-            }
-            int temp = array[i];
-            array[i] = array[mid];
-            array[mid] = temp;
-            i = mid;
+            swap(array,i,j);
         }
+        swap(array,left,i);
+        return i;
+    }
+
+    private static void swap(int[] array, int i, int j) {
+        int temp=array[i];
+        array[i]=array[j];
+        array[j]=temp;
+
     }
 
 
