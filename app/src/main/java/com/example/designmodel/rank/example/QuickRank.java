@@ -69,7 +69,7 @@ public class QuickRank {
         String[] strings = s.split(" ");
         List<String> list = new ArrayList<>();
         for (int i = 0; i < strings.length; i++) {
-            if (!strings[i].equals(" ")) {
+            if (!strings[i].equals("")) {
                 list.add(strings[i]);
             }
         }

@@ -281,4 +281,53 @@ public class LeetCode {
         }
         return current;
     }
+
+    // 42. 接雨水
+    public int trap(int[] height) {
+        int left = 0, right = height.length - 1, lMax = 0, rMax = 0, sum = 0;
+        while (left < right) {
+            lMax = Math.max(height[left], lMax);
+            rMax = Math.max(height[right], rMax);
+            if (height[left] < height[right]) {
+                sum += (lMax - height[left++]);
+            } else {
+                sum += (rMax - height[right--]);
+            }
+        }
+        return sum;
+    }
+
+    // 9.回文数
+    public boolean isPalindrome(int x) {
+        if (x < 0) {
+            return false;
+        }
+        String xString = Integer.toString(x);
+        int left = 0, right = xString.length() - 1;
+        while (left < right) {
+            if (xString.charAt(left) != xString.charAt(right)) {
+                return false;
+            }
+            left++;
+            right--;
+        }
+        return true;
+    }
+
+    /**
+     * 深搜/回溯模板
+     *
+     * void backtrack() {
+     *     if (终止条件) {
+     *         收获结果
+     *         return;
+     *     }
+     *     for (当前层) {
+     *         做一些操作
+     *         递归搜索下一层 backtrack()
+     *         回溯
+     *     }
+     * }
+     */
+
 }
