@@ -1,5 +1,7 @@
 package com.example.designmodel.rank.example;
 
+import com.example.designmodel.datastructure.LinkedNodeTest;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -224,6 +226,19 @@ public class LeetCode {
             result.next = resultRight.next;
         }
         return result;
+    }
+
+    private ListNode revert(ListNode head){
+        ListNode pre=null;
+        ListNode current=head;
+        ListNode next=null;
+        while (current!=null){
+            next=current.next;
+            current.next=pre;
+            pre=current;
+            current=next;
+        }
+        return pre;
     }
 
     // 56. 合并区间

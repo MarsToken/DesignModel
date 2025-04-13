@@ -12,23 +12,46 @@ public class BucketSort {
     private static final String TAG = "BucketSort";
 
     public static void main(String[] args) {
-//        float[] array = new float[]{
-//                0.1f, 0.9f, 0.8f, 0.5f, 0.7f
-//        };
-//        buketSort(array);
-//        for (int i = 0; i < array.length; i++) {
-//            System.out.println(array[i]);
-//        }
+        float[] array = new float[]{
+                0.1f, 0.9f, 0.8f, 0.5f, 0.7f
+        };
+        buketSort2(array);
+        for (int i = 0; i < array.length; i++) {
+            System.out.println(array[i]);
+        }
 
-        int[] array = Constant.array;
-        if (null == array) {
-            return;
+//        int[] array = Constant.array;
+//        if (null == array) {
+//            return;
+//        }
+//        int length = array.length;
+//        buketSort(array);
+//        for (int i = 0; i < length; i++) {
+//            System.out.println(array[i] + " ");
+//        }
+    }
+
+    private static void buketSort2(float[] array) {
+        int bucketDeep = 2;
+        int bucketCount = array.length / bucketDeep;
+        List<List<Float>> buckets = new ArrayList<>();
+        for (int i = 0; i < bucketCount; i++) {
+            buckets.add(new ArrayList<>());
         }
-        int length = array.length;
-        buketSort(array);
-        for (int i = 0; i < length; i++) {
-            System.out.println(array[i] + " ");
+        for (int i = 0; i < array.length; i++) {
+            int index = (int) (array[i]*bucketCount);
+            buckets.get(index).add(array[i]);
         }
+        for (int i = 0; i < bucketCount; i++) {
+            Collections.sort(buckets.get(i));
+        }
+        int index=-1;
+        for (int i = 0; i < bucketCount; i++) {
+            for (int j = 0; j < buckets.get(i).size(); j++) {
+                array[++index]=buckets.get(i).get(j);
+            }
+        }
+
     }
 
     private static void buketSort(float[] array) {
