@@ -1,11 +1,19 @@
 package com.example.designmodel.rank.example;
 
+import android.os.Build;
+import android.support.annotation.RequiresApi;
+
 import com.example.designmodel.datastructure.LinkedNodeTest;
 
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by WangMaoBo.
@@ -103,8 +111,8 @@ public class LeetCode {
             Collections.sort(element);
             Collections.sort(list);
             if (element.get(0) == list.get(0)
-                    && element.get(1) == list.get(1)
-                    && element.get(2) == list.get(2)) {
+                && element.get(1) == list.get(1)
+                && element.get(2) == list.get(2)) {
                 return true;
             }
         }
@@ -185,9 +193,21 @@ public class LeetCode {
     }
 
     // 56. 合并区间
-//    public int[][] merge(int[][] intervals) {
-//
-//    }
+    public int[][] merge(int[][] intervals) {
+        Arrays.sort(intervals, (a, b) -> a[0] - b[0]);
+        int[][] result = new int[intervals.length][2];
+        int index = -1;
+        for (int i = 0; i < intervals.length; i++) {
+            int[] cur = intervals[i];
+            if (-1 == index || result[index][1] < cur[0]) {
+                result[++index] = cur;
+            } else {
+                result[index][1] = Math.max(cur[1], result[index][1]);
+            }
+        }
+        return Arrays.copyOf(result, index + 1);
+
+    }
 
     // 92. 反转链表 II
     public ListNode reverseBetween(ListNode head, int left, int right) {
@@ -228,33 +248,17 @@ public class LeetCode {
         return result;
     }
 
-    private ListNode revert(ListNode head){
-        ListNode pre=null;
-        ListNode current=head;
-        ListNode next=null;
-        while (current!=null){
-            next=current.next;
-            current.next=pre;
-            pre=current;
-            current=next;
+    private ListNode revert(ListNode head) {
+        ListNode pre = null;
+        ListNode current = head;
+        ListNode next = null;
+        while (current != null) {
+            next = current.next;
+            current.next = pre;
+            pre = current;
+            current = next;
         }
         return pre;
-    }
-
-    // 56. 合并区间
-    public int[][] merge(int[][] intervals) {
-        Arrays.sort(intervals, (a, b) -> (a[0] - b[0]));
-        int index = -1;
-        int[][] result = new int[intervals.length][2];
-        for (int i = 0; i < intervals.length; i++) {
-            int[] current = intervals[i];
-            if (index == -1 || result[index][1] < current[0]) {
-                result[++index] = current;
-            } else {
-                result[index][1] = Math.max(result[index][1], current[1]);
-            }
-        }
-        return Arrays.copyOf(result, index + 1);
     }
 
     // 215. 数组中的第K个最大元素
@@ -331,18 +335,94 @@ public class LeetCode {
 
     /**
      * 深搜/回溯模板
-     *
+     * <p>
      * void backtrack() {
-     *     if (终止条件) {
-     *         收获结果
-     *         return;
-     *     }
-     *     for (当前层) {
-     *         做一些操作
-     *         递归搜索下一层 backtrack()
-     *         回溯
-     *     }
+     * if (终止条件) {
+     * 收获结果
+     * return;
+     * }
+     * for (当前层) {
+     * 做一些操作
+     * 递归搜索下一层 backtrack()
+     * 回溯
+     * }
      * }
      */
+
+    //-----------------------------------经典100--------------------------------------
+
+    /**
+     * 624.数组列表中的最大距离
+     * <p>
+     * 选择排序思路
+     */
+    public int maxDistance(List<List<Integer>> arrays) {
+        int maxDis = 0;
+        for (int i = 0; i < arrays.size() - 1; i++) {
+            int index = i;
+            for (int j = i + 1; j < arrays.size(); j++) {
+                maxDis = Math.max(maxDis, compareTo2(arrays.get(index), arrays.get(j)));
+            }
+        }
+        return maxDis;
+    }
+
+    private int compareTo2(List<Integer> src1, List<Integer> src2) {
+        int maxDis = 0;
+        maxDis = Math.max(maxDis, Math.abs(src1.get(0) - src2.get(src2.size() - 1)));
+        maxDis = Math.max(maxDis, Math.abs(src2.get(0) - src1.get(src1.size() - 1)));
+        return maxDis;
+    }
+
+    private int compareTo(List<Integer> src1, List<Integer> src2) {
+        int maxDis = 0;
+        for (int i = 0; i < src1.size(); i++) {
+            for (int j = 0; j < src2.size(); j++) {
+                maxDis = Math.max(maxDis, Math.abs(src1.get(i) - src2.get(j)));
+            }
+        }
+        return maxDis;
+    }
+
+    /**
+     * 159.至多包含两个不同字符的最长子串
+     */
+    public int lengthOfLongestSubstringTwoDistinct(String s) {
+        HashMap<Character, Integer> map = new HashMap<>();
+        int max = 0;
+        int left = 0;
+        int right = 0;
+        int length = s.length();
+        while (right < length) {
+            if (map.size() < 3) {
+                map.put(s.charAt(right), right);
+                right++;
+            }
+            if (map.size() == 3) {
+                int deleteIndex = Collections.min(map.values());
+                map.remove(s.charAt(deleteIndex));
+                left = deleteIndex + 1;
+            }
+            max = Math.max(max, right - left);
+        }
+        return max;
+    }
+
+    /**
+     * 266.回文排列
+     */
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public boolean canPermutePalindrome(String s) {
+        HashMap<Character, Integer> map = new HashMap<>();
+        for (int i = 0; i < s.length(); i++) {
+            map.put(s.charAt(i), map.getOrDefault(s.charAt(i), 0) + 1);
+        }
+        int count = 0;
+        for (int c : map.values()) {
+            count += c % 2;
+        }
+        return count <= 1;
+    }
+
 
 }

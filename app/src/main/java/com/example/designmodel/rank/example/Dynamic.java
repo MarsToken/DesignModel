@@ -211,4 +211,26 @@ public class Dynamic {
         return dp[n][amount] == MAX ? -1 : dp[n][amount];
     }
 
+
+    public static int choiceHardCoins(int coins[], int amount) {
+        // dp[i][a]=min(dp[i-1][a],dp[i][a-coins[i-1]]+1)
+        int n = coins.length;
+        int[][] dp = new int[n + 1][amount + 1];
+        int MAX = amount + 1;
+        for (int i = 1; i <= amount; i++) {
+            dp[0][i] = MAX;
+        }
+        for (int i = 1; i <= n; i++) {
+            for (int a = 1; a <= amount; a++) {
+                if (coins[i - 1] > a) {
+                    dp[i][a] = dp[i - 1][a];
+                } else {
+                    dp[i][a] = Math.min(dp[i - 1][a], dp[i][a - coins[i - 1]] + 1);
+                }
+            }
+        }
+        return dp[n][amount] == MAX ? -1 : dp[n][amount];
+    }
+
+
 }

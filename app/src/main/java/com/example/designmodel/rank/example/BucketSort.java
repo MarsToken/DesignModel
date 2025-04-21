@@ -39,19 +39,18 @@ public class BucketSort {
             buckets.add(new ArrayList<>());
         }
         for (int i = 0; i < array.length; i++) {
-            int index = (int) (array[i]*bucketCount);
+            int index = (int) (array[i] *bucketCount);
             buckets.get(index).add(array[i]);
         }
-        for (int i = 0; i < bucketCount; i++) {
+        for (int i = 0; i <bucketCount; i++) {
             Collections.sort(buckets.get(i));
         }
-        int index=-1;
+        int index = 0;
         for (int i = 0; i < bucketCount; i++) {
             for (int j = 0; j < buckets.get(i).size(); j++) {
-                array[++index]=buckets.get(i).get(j);
+                array[index++]=buckets.get(i).get(j);
             }
         }
-
     }
 
     private static void buketSort(float[] array) {

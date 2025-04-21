@@ -17,7 +17,7 @@ public class LinkedNodeTest {
     }
 
     private static void revertLink(LinkNode linkNode) {
-        if(linkNode == null){
+        if (linkNode == null) {
             return;
         }
 
@@ -107,7 +107,7 @@ public class LinkedNodeTest {
     }
 
     public static class Node {
-        private Node next;
+        public Node next;
         private int value;
 
         public Node(int value) {

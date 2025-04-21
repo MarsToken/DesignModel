@@ -74,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+        int result = 0 / 0;
         View view = new View(this);
         view.invalidate(new Rect());
         receiver();
