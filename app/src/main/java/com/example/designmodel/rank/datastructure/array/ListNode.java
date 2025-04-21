@@ -1,4 +1,4 @@
-package com.example.designmodel.rank.example.array;
+package com.example.designmodel.rank.datastructure.array;
 
 /**
  * Created by WangMaoBo.

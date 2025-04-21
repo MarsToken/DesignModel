@@ -1,4 +1,4 @@
-package com.example.designmodel.rank.example.array;
+package com.example.designmodel.rank.datastructure.array;
 
 /**
  * 注意添加index均后移一位

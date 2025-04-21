@@ -4,11 +4,11 @@ import com.example.designmodel.rank.datastructure.LinkNode;
 
 /**
  * 基于链表实现的栈
- *
+ * 注意 top And size
  * @author WangMaoBo
  * @since 2025/4/21
  */
-public class MyLinkedListStack {
+public class LinkedListStack {
     private static final String TAG = "MyStack";
     // 将头结点作为栈顶
     private LinkNode topStack;
@@ -16,7 +16,7 @@ public class MyLinkedListStack {
     private int size = 0;
 
     public static void main(String[] args) {
-        MyLinkedListStack stack = new MyLinkedListStack();
+        LinkedListStack stack = new LinkedListStack();
         for (int i = 0; i < 5; i++) {
             stack.push(i);
         }
@@ -35,7 +35,7 @@ public class MyLinkedListStack {
         }
     }
 
-    public MyLinkedListStack() {
+    public LinkedListStack() {
         topStack = null;
         size = 0;
     }

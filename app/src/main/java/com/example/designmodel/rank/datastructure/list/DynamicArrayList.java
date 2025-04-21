@@ -13,7 +13,7 @@ import java.util.Arrays;
  * @author WangMaoBo
  * @since 2025/4/21
  */
-public class MyArrayList {
+public class DynamicArrayList {
     private static final String TAG = "List";
     private int[] res;
     // 容量不一定有值  CAPACITY >= size
@@ -24,7 +24,7 @@ public class MyArrayList {
     private int FACTOR = 2;
 
     public static void main(String[] args) {
-        MyArrayList list = new MyArrayList();
+        DynamicArrayList list = new DynamicArrayList();
         System.out.println("list size is " + list.size);
         for (int i = 0; i < 10; i++) {
             list.add(i);
@@ -40,7 +40,7 @@ public class MyArrayList {
 
     }
 
-    public MyArrayList() {
+    public DynamicArrayList() {
         res = new int[capacity];
     }
 
