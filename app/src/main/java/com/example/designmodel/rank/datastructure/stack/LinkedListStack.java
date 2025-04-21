@@ -1,6 +1,6 @@
 package com.example.designmodel.rank.datastructure.stack;
 
-import com.example.designmodel.rank.datastructure.LinkNode;
+import com.example.designmodel.rank.datastructure.bean.LinkNode;
 
 /**
  * 基于链表实现的栈

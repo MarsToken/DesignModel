@@ -73,14 +73,16 @@ public class DynamicArrayList {
         res[index] = number;
     }
 
-    public void remove(int index) {
+    public int remove(int index) {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("数组越界：index is " + index);
         }
+        int number = res[index];
         for (int i = index; i < size - 1; i++) {
             res[i] = res[i + 1];
         }
         size--;
+        return number;
     }
 
     public int get(int index) {

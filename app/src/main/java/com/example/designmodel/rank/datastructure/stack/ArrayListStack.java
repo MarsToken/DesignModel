@@ -1,6 +1,6 @@
 package com.example.designmodel.rank.datastructure.stack;
 
-import java.util.ArrayList;
+import com.example.designmodel.rank.datastructure.list.DynamicArrayList;
 
 /**
  * 基于数组实现的栈
@@ -10,7 +10,7 @@ import java.util.ArrayList;
  */
 public class ArrayListStack {
     private static final String TAG = "MyArrayListStack";
-    private ArrayList<Integer> stack;
+    private DynamicArrayList stack;
 
     public static void main(String[] args) {
         ArrayListStack alStack = new ArrayListStack();
@@ -28,7 +28,7 @@ public class ArrayListStack {
     }
 
     public ArrayListStack() {
-        stack = new ArrayList<>();
+        stack = new DynamicArrayList();
     }
 
     public int size() {
@@ -57,7 +57,7 @@ public class ArrayListStack {
         return stack.get(size() - 1);
     }
 
-    public Object[] toArray() {
+    public int[] toArray() {
         return stack.toArray();
     }
 }

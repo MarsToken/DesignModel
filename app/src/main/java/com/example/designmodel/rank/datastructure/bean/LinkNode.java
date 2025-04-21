@@ -1,4 +1,4 @@
-package com.example.designmodel.rank.datastructure;
+package com.example.designmodel.rank.datastructure.bean;
 
 /**
  * 单链表
