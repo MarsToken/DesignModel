@@ -4,6 +4,7 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 
 import com.example.designmodel.datastructure.LinkedNodeTest;
+import com.example.designmodel.datastructure.Test;
 
 import java.nio.charset.Charset;
 import java.util.ArrayList;
@@ -424,5 +425,39 @@ public class LeetCode {
         return count <= 1;
     }
 
+
+    public String decodeIp(String ips) {
+        if (null == ips || ips.isEmpty()) {
+            return "";
+        }
+        int length = ips.length();
+        if (ips.length() > 12 || ips.length() < 4) {
+            return "";
+        }
+        for (int i = 1; i < 4; i++) {
+            for (int j = i + 1; j - i < 4; j++) {
+                for (int k = j + 1; k < length && k - j < 4; k++) {
+                    String first = ips.substring(0, i);
+                    String second = ips.substring(i, j);
+                    String third = ips.substring(j, k);
+                    String four = ips.substring(k);
+                    if (four.length() >= 4 || !check(four) || !check(third) || !check(second) || !check(first)) {
+                        continue;
+                    }
+                    StringBuilder sb = new StringBuilder();
+                    sb.append(first);
+                    sb.append(second);
+                    sb.append(third);
+                    sb.append(four);
+                    return sb.toString();
+                }
+            }
+        }
+        return "";
+    }
+
+    private boolean check(String value) {
+        return !(value.length() > 1 && value.charAt(0) == '0') || Integer.parseInt(value) > 255;
+    }
 
 }
