@@ -1,7 +1,10 @@
 package com.example.designmodel.leetcode.listnode;
 
 /**
- *
+ * while (result != 0) {
+ *   int element = result % 10;
+ *   result = result / 10;
+ * }
  */
 public class 两数相加2 {
     private static final String TAG = "两数相加2";
@@ -23,11 +26,18 @@ public class 两数相加2 {
         ListNode head = new ListNode(0);
         ListNode temp = head;
         int result = number1 + number2;
+        // 边界判断
+        if (result == 0) {
+            return head;
+        }
         while (result != 0) {
             int element = result % 10;
             result = result / 10;
             ListNode cur = new ListNode(element);
+            // 给当前temp.next赋新值
             temp.next = cur;
+            // 将next赋值给temp
+            temp = temp.next;
         }
         return head.next;
     }
