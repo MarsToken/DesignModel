@@ -1,5 +1,8 @@
 package com.example.designmodel.leetcode.doublepointer;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 167.两数之和2-输入有序数组
  */
@@ -22,6 +25,19 @@ public class 两数之和2 {
                 left++;
             }
 
+        }
+        return new int[]{-1, -1};
+    }
+
+    // 3.hash表
+    public int[] twoSum2(int[] numbers, int target) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < numbers.length; i++) {
+            if (map.containsKey(target - numbers[i])) {
+                return new int[]{map.get(target - numbers[i])+1, i+1};
+            } else {
+                map.put(numbers[i], i);
+            }
         }
         return new int[]{-1, -1};
     }

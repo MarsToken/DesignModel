@@ -3,7 +3,7 @@ package com.example.designmodel.leetcode.doublepointer;
 /**
  * 125.验证回文串
  */
-public class M1CheckCycleString {
+public class 验证回文串125 {
     private static final String TAG = "M1CheckCycleString";
 
     public boolean isPalindrome(String s) {
@@ -14,7 +14,7 @@ public class M1CheckCycleString {
             }
         }
         // 双指针。头尾法
-        int left = 0, length = sb.length(), right = length - 1;
+        int left = 0, right = sb.length() - 1;
         while (left < right) {
             if (sb.charAt(left) != sb.charAt(right)) {
                 return false;

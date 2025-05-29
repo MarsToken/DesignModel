@@ -16,19 +16,18 @@ public class 无重复字符的最长子串3 {
         if (s.length() == 0) {
             return 0;
         }
-        int ans = 0;
-        int first = 0;
-        int second = 0;
+        int count = 0;
         Set<Character> set = new HashSet<>();
-        while (second < s.length()) {
-            while (set.contains(s.charAt(second))) {
-                ans = Math.max(ans, second - first + 1);
-                set.remove(s.charAt(first));
-                first++;
+        for (int left = 0, right = 0; right < s.length(); right++) {
+            while (set.contains(s.charAt(right))) {
+                // set中有ch，则缩短左边界，同时从set集合移出left元素
+                set.remove(s.charAt(left)); // 注意移除的是左边的元素，而不是重复元素！！！
+                left++;
             }
-            set.add(s.charAt(second));
-            second++;
+            set.add(s.charAt(right));
+            count = Math.max(count, right - left + 1);
         }
-        return ans;
+        return count;
     }
+
 }

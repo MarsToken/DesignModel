@@ -6,24 +6,18 @@ package com.example.designmodel.leetcode.slidewindow;
 public class 长度最小的子数组209 {
     private static final String TAG = "长度最小的子数组209";
 
-    public int minSubArrayLen(int target, int[] nums) {
+    public int minSubArrayLen2(int target, int[] nums) {
         int length = nums.length;
-        if (length == 0) {
-            return 0;
-        }
-        // 同方向：头头发
-        int ans = Integer.MAX_VALUE;
-        int first = 0, second = 0;
         int sum = 0;
-        while (second < length) {
-            sum += nums[second];
+        int count = Integer.MAX_VALUE;
+        for (int left = 0, right = 0; right < length; right++) {
+            sum += nums[right];
             while (sum >= target) {
-                ans = Math.min(ans, second - first + 1);
-                sum -= nums[first];
-                first++;
+                count = Math.min(count, right - left + 1);
+                sum -= nums[left]; // 注意移除的是左边的元素，而不是重复元素！！！
+                left++;
             }
-            second++;
         }
-        return ans == Integer.MAX_VALUE ? 0 : ans;
+        return count == Integer.MAX_VALUE ? 0 : count;
     }
 }

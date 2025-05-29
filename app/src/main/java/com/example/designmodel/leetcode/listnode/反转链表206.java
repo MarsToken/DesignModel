@@ -3,7 +3,7 @@ package com.example.designmodel.leetcode.listnode;
 /**
  * 206.反转链表
  **/
-public class M1Revert0 {
+public class 反转链表206 {
     private static final String TAG = "M1Revert";
 
     // 插头法 ，将当前节点的next指针指向已准备好的前一个节点

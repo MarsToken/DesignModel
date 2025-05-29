@@ -3,7 +3,7 @@ package com.example.designmodel.leetcode.doublepointer;
 /**
  * 392.判断子序列
  */
-public class M2CheckChildQueue {
+public class 判断子序列392 {
     private static final String TAG = "M2CheckChildQueue";
 
     // 判断 s 是否为 t 的子序列

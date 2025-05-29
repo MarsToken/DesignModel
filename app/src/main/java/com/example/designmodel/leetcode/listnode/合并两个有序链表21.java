@@ -3,7 +3,7 @@ package com.example.designmodel.leetcode.listnode;
 /**
  * 21.合并两个有序链表
  */
-public class M2Merge {
+public class 合并两个有序链表21 {
     private static final String TAG = "M2Merge";
 
     public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
