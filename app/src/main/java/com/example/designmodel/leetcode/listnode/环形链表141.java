@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- *
+ * 1.双指针（快慢指针）
  */
 public class 环形链表141 {
     private static final String TAG = "环形链表141";
@@ -37,14 +37,24 @@ public class 环形链表141 {
         }
         ListNode slow = head;
         ListNode fast = head.next; // 如果我们将两个指针初始都置于 head，那么 while 循环就不会执行
-        while (slow != fast) { // 相等则有换 返回为true
-            if (fast == null || fast.next == null) { // 判断是否走完，走完了还没有相遇则无环
-                return false;
-            }
+        while (fast == null || fast.next == null) { // 判断是否走完，走完了还没有相遇则无环
             slow = slow.next;
             fast = fast.next.next;
+            if (slow != fast) { // 相等则有换 返回为true
+                return true;
+            }
         }
 
         return true;
+    }
+
+    // 找中间节点（偶数长度返回靠左的中间节点）
+    public ListNode findMiddle(ListNode head) {
+        ListNode slow = head, fast = head;
+        while (fast != null && fast.next != null && fast.next.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return slow; // slow即为中间节点
     }
 }

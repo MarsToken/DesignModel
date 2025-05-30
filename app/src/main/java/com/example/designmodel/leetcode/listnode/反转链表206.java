@@ -1,17 +1,20 @@
 package com.example.designmodel.leetcode.listnode;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 206.反转链表
  **/
 public class 反转链表206 {
     private static final String TAG = "M1Revert";
 
-    // 插头法 ，将当前节点的next指针指向已准备好的前一个节点
+    // 双指针插头法 ，将当前节点的next指针指向已准备好的前一个节点
     public ListNode reverseList(ListNode head) {
         ListNode pre = null;
         ListNode cur = head;
         while (cur != null) {
-            ListNode next = cur.next;
+            ListNode next = cur.next; // 和a、b换值一个道理
             cur.next = pre;
             pre = cur;
             cur = next;
@@ -19,19 +22,46 @@ public class 反转链表206 {
         return pre;
     }
 
-    // 递归
+    // 递归 套路，万能模板
     public ListNode reverseList2(ListNode head) {
+        // 边界判断
         if (head == null || head.next == null) {
             return head;
         }
+        // 递归
         ListNode newHead = reverseList2(head.next);
-        head.next.next=head;
-        head.next=null;
+        // 回溯
+        head.next.next = head;
+        head.next = null;
         return newHead;
     }
 
+
+    // 借助数组，空间复杂度n
+    public static ListNode reverseList4(ListNode head) {
+        List<ListNode> list = new ArrayList<>();
+        while(head!=null){
+            ListNode cur = new ListNode(head.val);
+            list.add(cur);
+            head=head.next;
+        }
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println(list.get(i).val + "==");
+        }
+        ListNode newHead=new ListNode(0);
+        ListNode temp=newHead;
+        for(int i=list.size()-1;i>=0;i--){
+            temp.next = list.get(i);
+            temp=temp.next;
+        }
+        return newHead.next;
+    }
+
     /**
+     * 递归详解
+     * <p>
      * 以链表1->2->3->4->5举例
+     *
      * @param head
      * @return
      */
