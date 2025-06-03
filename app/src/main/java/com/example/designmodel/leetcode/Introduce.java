@@ -1,6 +1,9 @@
 package com.example.designmodel.leetcode;
 
 /**
+ * 算法：
+ * 最后考虑边界情况！
+ *
  * 1.总结
  * set:除重
  * map:计数,两数和目标值

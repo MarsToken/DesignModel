@@ -57,8 +57,8 @@ public class TreeNode {
         return list;
     }
 
-    public int getMaxWidth(TreeNode root) {
-        Queue<TreeNode> queue = new LinkedList<>();
+    public int getMaxWidthByBFS(TreeNode root) {
+        Queue<TreeNode> queue = new LinkedList();
         queue.add(root);
         int maxSize = 0;
         while (!queue.isEmpty()) {
@@ -67,15 +67,17 @@ public class TreeNode {
             for (int i = 0; i < currentSize; i++) {
                 TreeNode node = queue.poll();
                 if (node.left != null) {
-                    queue.offer(node.left);
+                    queue.add(node.left);
                 }
                 if (node.right != null) {
-                    queue.offer(node.right);
+                    queue.add(node.right);
                 }
             }
         }
         return maxSize;
     }
+
+    // 深度优先遍历
 
     /**
      * 前序遍历：中，左，右
@@ -108,26 +110,6 @@ public class TreeNode {
         afterOrder(list, root.left);
         afterOrder(list, root.right);
         list.add(root.value);
-    }
-
-    public int dfs(TreeNode root) {
-        Queue<TreeNode> queue = new LinkedList();
-        queue.add(root);
-        int maxSize = 0;
-        while (!queue.isEmpty()) {
-            int currentSize = queue.size();
-            maxSize = Math.max(maxSize, currentSize);
-            for (int i = 0; i < currentSize; i++) {
-                TreeNode node = queue.poll();
-                if (node.left != null) {
-                    queue.add(node.left);
-                }
-                if (node.right != null) {
-                    queue.add(node.right);
-                }
-            }
-        }
-        return maxSize;
     }
 
     public int feiBo(int n) {
