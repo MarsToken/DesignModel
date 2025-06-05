@@ -35,6 +35,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.annotation.Native;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -67,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //
         startActivity(new Intent(this, MainActivity2.class));
         Choreographer.getInstance().postFrameCallback(new Choreographer.FrameCallback() {
             @Override
