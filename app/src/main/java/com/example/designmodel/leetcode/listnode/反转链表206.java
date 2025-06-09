@@ -10,11 +10,16 @@ public class 反转链表206 {
     private static final String TAG = "M1Revert";
 
     // 双指针插头法 ，将当前节点的next指针指向已准备好的前一个节点
+    /**
+     * 通过三个指针(pre/current/next)的迭代操作，逐个反转节点指向。
+     * 每次循环将当前节点的next指向前驱节点，然后三个指针整体前移
+     */
     public ListNode reverseList(ListNode head) {
         ListNode pre = null;
         ListNode cur = head;
+        ListNode next = null;
         while (cur != null) {
-            ListNode next = cur.next; // 和a、b换值一个道理
+            next = cur.next; // 和a、b换值一个道理
             cur.next = pre;
             pre = cur;
             cur = next;
@@ -40,19 +45,19 @@ public class 反转链表206 {
     // 借助数组，空间复杂度n
     public static ListNode reverseList4(ListNode head) {
         List<ListNode> list = new ArrayList<>();
-        while(head!=null){
+        while (head != null) {
             ListNode cur = new ListNode(head.val);
             list.add(cur);
-            head=head.next;
+            head = head.next;
         }
         for (int i = 0; i < list.size(); i++) {
             System.out.println(list.get(i).val + "==");
         }
-        ListNode newHead=new ListNode(0);
-        ListNode temp=newHead;
-        for(int i=list.size()-1;i>=0;i--){
+        ListNode newHead = new ListNode(0);
+        ListNode temp = newHead;
+        for (int i = list.size() - 1; i >= 0; i--) {
             temp.next = list.get(i);
-            temp=temp.next;
+            temp = temp.next;
         }
         return newHead.next;
     }
